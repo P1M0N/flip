@@ -1,16 +1,12 @@
 package de.respawn_productions.flip;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -26,25 +22,38 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		final Button Einzelspieler = (Button) findViewById(R.id.Einzelspieler);
+		final Button Mehrspieler = (Button) findViewById(R.id.Mehrspieler);
 
 		try {
 			writeFile();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 		}
 		
 		final OnClickListener ClickListener = new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Intent test = new Intent(MainActivity.this, EinzelspielermodusStarten.class);
-				startActivity(test);				
+				switch (v.getId()) {
+				case R.id.Einzelspieler:
+					Intent Einzelspieler = new Intent(MainActivity.this, EinzelspielermodusStarten.class);
+					startActivity(Einzelspieler);	
+					break;
+				case R.id.Mehrspieler:
+					Intent Mehrspieler = new Intent(MainActivity.this, MehrspielermodusStarten.class);
+					startActivity(Mehrspieler);	
+					break;
+
+				default:
+					break;
+				}
+							
 			}
 		};
 
 
 		Einzelspieler.setOnClickListener(ClickListener);
+		Mehrspieler.setOnClickListener(ClickListener);
 
 	}
 
@@ -57,7 +66,7 @@ public class MainActivity extends Activity {
 		InputStreamReader str = new InputStreamReader(inputStream);
 
 		try {
-			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			outputStream = openFileOutput(filename, MainActivity.MODE_PRIVATE);
 			outputStream.write(string.getBytes());
 			outputStream.close();
 		} catch (Exception e) {

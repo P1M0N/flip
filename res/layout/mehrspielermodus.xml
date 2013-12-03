@@ -27,31 +27,18 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/Einzelspieler"
+                android:id="@+id/SpielErstellen"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Einzelspieler" />
+                android:text="Spiel Erstellen" />
 
             <Button
-                android:id="@+id/Mehrspieler"
+                android:id="@+id/SpielBeitreten"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Mehrspieler" />
+                android:text="Spiel Beitreten" />
 
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Tutorial" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Editor" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Optionen" />
+            
         </LinearLayout>
 
         <LinearLayout
