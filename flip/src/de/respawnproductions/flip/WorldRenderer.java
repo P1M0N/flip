@@ -20,7 +20,7 @@ public class WorldRenderer {
 	private static final float CAMERA_HEIGHT = 7f;
 	
 	private World world;
-	private OrthographicCamera camera;
+	public OrthographicCamera camera;
 	
 	ShapeRenderer debugRenderer = new ShapeRenderer();
 	

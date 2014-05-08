@@ -7,6 +7,9 @@ import de.respawnproductions.flip.Player.State;
 import de.respawnproductions.flip.World;
 import de.respawnproductions.flip.Player;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+
 public class WorldController {
 	enum Keys {
 		LEFT, RIGHT, JUMP, FIRE, UP, DOWN
@@ -14,6 +17,7 @@ public class WorldController {
 
 	private World 	world;
 	private Player 	player;
+	private WorldRenderer renderer;
 
 	static Map<Keys, Boolean> keys = new HashMap<WorldController.Keys, Boolean>();
 	static {
@@ -25,19 +29,45 @@ public class WorldController {
 		keys.put(Keys.DOWN, false);
 	};
 
-	public WorldController(World world) {
+	public WorldController(World world, WorldRenderer renderer) {
 		this.world = world;
 		this.player = world.getPlayer();
+		this.renderer = renderer;
 	}
-
+	//** Camera extensions **//
+	
+	public void cameraHunt ( Player player ){
+		float cameraSpeed = 0.065f;
+		float threshold = 0.1f;
+		Vector2 playerPosition = player.getPosition();
+		Vector3 cameraPosition = renderer.camera.position.cpy();
+		
+		if( (playerPosition.x - cameraPosition.x) > threshold ){
+			renderer.camera.position.add( cameraSpeed, 0.0f, 0.0f );
+		}
+		else if( (cameraPosition.x - playerPosition.x) > threshold ){
+			renderer.camera.position.sub( cameraSpeed, 0.0f, 0.0f);
+		}
+		if( (playerPosition.y - cameraPosition.y) > threshold){
+			renderer.camera.position.add( 0.0f, cameraSpeed, 0.0f);
+		}
+		else if( (cameraPosition.y - playerPosition.y) > threshold ){
+			renderer.camera.position.sub( 0.0f, cameraSpeed, 0.0f);
+		}
+		
+		renderer.camera.update();
+	}
+	
 	// ** Key presses and touches **************** //
 
 	public void leftPressed() {
 		keys.get(keys.put(Keys.LEFT, true));
+		
+		
 	}
 
 	public void rightPressed() {
-		keys.get(keys.put(Keys.RIGHT, true));
+		keys.get(keys.put(Keys.RIGHT, true));;
 	}
 	
 	public void upPressed() {
