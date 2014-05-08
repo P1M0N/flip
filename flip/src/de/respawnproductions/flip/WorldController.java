@@ -113,13 +113,14 @@ public class WorldController {
 			player.getVelocity().y = -Player.SPEED;
 		}
 		// need to check if both or none direction are pressed, then Bob is idle
-		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||
-				(!keys.get(Keys.LEFT) && !(keys.get(Keys.RIGHT)))) {
+		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||  ((keys.get(Keys.UP) && (keys.get(Keys.DOWN)))) || !(keys.get(Keys.LEFT)) && !(keys.get(Keys.RIGHT)) && !(keys.get(Keys.UP)) && !(keys.get(Keys.DOWN))) {
 			player.setState(State.IDLE);
 			// acceleration is 0 on the x
 			player.getAcceleration().x = 0;
+			player.getAcceleration().y = 0;
 			// horizontal speed is 0
 			player.getVelocity().x = 0;
+			player.getVelocity().y = 0;
 		}
 	}
 }
