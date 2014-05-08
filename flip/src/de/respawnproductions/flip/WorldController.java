@@ -9,7 +9,7 @@ import de.respawnproductions.flip.Player;
 
 public class WorldController {
 	enum Keys {
-		LEFT, RIGHT, JUMP, FIRE
+		LEFT, RIGHT, JUMP, FIRE, UP, DOWN
 	}
 
 	private World 	world;
@@ -21,6 +21,8 @@ public class WorldController {
 		keys.put(Keys.RIGHT, false);
 		keys.put(Keys.JUMP, false);
 		keys.put(Keys.FIRE, false);
+		keys.put(Keys.UP, false);
+		keys.put(Keys.DOWN, false);
 	};
 
 	public WorldController(World world) {
@@ -37,6 +39,14 @@ public class WorldController {
 	public void rightPressed() {
 		keys.get(keys.put(Keys.RIGHT, true));
 	}
+	
+	public void upPressed() {
+		keys.get(keys.put(Keys.UP, true));
+	}
+	
+	public void downPressed() {
+		keys.get(keys.put(Keys.DOWN, true));
+	}
 
 	public void jumpPressed() {
 		keys.get(keys.put(Keys.JUMP, true));
@@ -52,6 +62,14 @@ public class WorldController {
 
 	public void rightReleased() {
 		keys.get(keys.put(Keys.RIGHT, false));
+	}
+	
+	public void upReleased() {
+		keys.get(keys.put(Keys.UP, false));
+	}
+
+	public void downReleased() {
+		keys.get(keys.put(Keys.DOWN, false));
 	}
 
 	public void jumpReleased() {
@@ -81,6 +99,18 @@ public class WorldController {
 			player.setFacingLeft(0);
 			player.setState(State.MOVE);
 			player.getVelocity().x = Player.SPEED;
+		}
+		if (keys.get(Keys.UP)) {
+			// up is pressed
+			player.setFacingDown(0);
+			player.setState(State.MOVE);
+			player.getVelocity().y = Player.SPEED;
+		}
+		if (keys.get(Keys.DOWN)) {
+			// down is pressed
+			player.setFacingDown(1);
+			player.setState(State.MOVE);
+			player.getVelocity().y = -Player.SPEED;
 		}
 		// need to check if both or none direction are pressed, then Bob is idle
 		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||

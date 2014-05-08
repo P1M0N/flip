@@ -55,44 +55,88 @@ public class GameScreen implements Screen, InputProcessor {
 	public void dispose(){
 		
 	}
-	@Override
-	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
+	
+	// * InputProcessor methods ***************************//
+
+		@Override
+		public boolean keyDown(int keycode) {
+			if (keycode == Keys.LEFT)
+				controller.leftPressed();
+			if (keycode == Keys.RIGHT)
+				controller.rightPressed();
+			if (keycode == Keys.UP)
+				controller.upPressed();
+			if (keycode == Keys.DOWN)
+				controller.downPressed();
+			if (keycode == Keys.Z)
+				controller.jumpPressed();
+			if (keycode == Keys.X)
+				controller.firePressed();
+			return true;
+		}
+
+		@Override
+		public boolean keyUp(int keycode) {
+			if (keycode == Keys.LEFT)
+				controller.leftReleased();
+			if (keycode == Keys.RIGHT)
+				controller.rightReleased();
+			if (keycode == Keys.UP)
+				controller.upReleased();
+			if (keycode == Keys.DOWN)
+				controller.downReleased();
+			if (keycode == Keys.Z)
+				controller.jumpReleased();
+			if (keycode == Keys.X)
+				controller.fireReleased();
+			return true;
+		}
+
+		@Override
+		public boolean keyTyped(char character) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchDown(int x, int y, int pointer, int button) {
+			if (x < width / 2 && y > height / 2) {
+				controller.leftPressed();
+			}
+			if (x > width / 2 && y > height / 2) {
+				controller.rightPressed();
+			}
+			return true;
+		}
+
+		@Override
+		public boolean touchUp(int x, int y, int pointer, int button) {
+			if (x < width / 2 && y > height / 2) {
+				controller.leftReleased();
+			}
+			if (x > width / 2 && y > height / 2) {
+				controller.rightReleased();
+			}
+			return true;
+		}
+
+		@Override
+		public boolean touchDragged(int x, int y, int pointer) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean mouseMoved(int x, int y) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean scrolled(int amount) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 }

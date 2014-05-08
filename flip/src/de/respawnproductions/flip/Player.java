@@ -8,7 +8,7 @@ public class Player {
 		IDLE, MOVE, JUMP, DEAD
 	}
 	
-	static final float SPEED = 2f; //einheiten pro sekunde
+	static final float SPEED = 4f; //einheiten pro sekunde
 	static final float JUMP_VELO = 1f;
 	static final float SIZE = 0.4f;
 	
@@ -18,6 +18,7 @@ public class Player {
 	Rectangle bounds = new Rectangle();
 	State state = State.IDLE;
 	boolean facingLeft = true;
+	boolean facingDown = true;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -53,6 +54,13 @@ public class Player {
 			facingLeft = true;
 		if(i == 0)
 			facingLeft = false;
+	}
+	
+	public void setFacingDown( int i){
+		if(i == 1)
+			facingDown = true;
+		if(i == 0)
+			facingDown = false;
 	}
 
 }
