@@ -4,19 +4,42 @@ import de.respawnproductions.flip.BLOCK_SOLID;
 import de.respawnproductions.flip.Enemy;
 import de.respawnproductions.flip.Player;
 import de.respawnproductions.flip.World;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera; 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 
 public class WorldRenderer {
 
+	private static final float CAMERA_WIDTH = 10f;
+	private static final float CAMERA_HEIGHT = 7f;
+	
 	private World world;
 	private OrthographicCamera camera;
 	
 	ShapeRenderer debugRenderer = new ShapeRenderer();
+	
+	private Texture bobTexture;
+	private Texture blockTexture;
+
+	private SpriteBatch spriteBatch;
+	private boolean debug = false;
+	private int width;
+	private int height;
+	private float ppuX;	// pixels per unit on the X axis
+	private float ppuY;	// pixels per unit on the Y axis
+	
+	public void setSize (int w, int h) {
+		this.width = w;
+		this.height = h;
+		ppuX = (float)width / CAMERA_WIDTH;
+		ppuY = (float)height / CAMERA_HEIGHT;
+	}
 	
 	public WorldRenderer( World world ){
 		this.world = world;
