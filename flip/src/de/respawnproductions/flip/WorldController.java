@@ -61,13 +61,11 @@ public class WorldController {
 	// ** Key presses and touches **************** //
 
 	public void leftPressed() {
-		keys.get(keys.put(Keys.LEFT, true));
-		
-		
+		keys.get(keys.put(Keys.LEFT, true));		
 	}
 
 	public void rightPressed() {
-		keys.get(keys.put(Keys.RIGHT, true));;
+		keys.get(keys.put(Keys.RIGHT, true));
 	}
 	
 	public void upPressed() {
@@ -142,13 +140,24 @@ public class WorldController {
 			player.setState(State.MOVE);
 			player.getVelocity().y = -Player.SPEED;
 		}
-		// need to check if both or none direction are pressed, then Bob is idle
-		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||  ((keys.get(Keys.UP) && (keys.get(Keys.DOWN)))) || !(keys.get(Keys.LEFT)) && !(keys.get(Keys.RIGHT)) && !(keys.get(Keys.UP)) && !(keys.get(Keys.DOWN))) {
+		
+		//Neither Left nor Right is pressed -> set horizontal Speed to null
+		if((!keys.get(Keys.LEFT) && !keys.get(Keys.RIGHT)))
+			player.getVelocity().x = 0;
+		
+		//Neither Up nor Down is pressed -> set vertical Speed to null
+		if(!keys.get(Keys.UP) && !keys.get(Keys.DOWN))
+			player.getVelocity().y = 0;
+		
+		// need to check if both or none direction are pressed, then the Player is idle
+		if ((keys.get(Keys.LEFT) && keys.get(Keys.RIGHT)) ||  ((keys.get(Keys.UP) && (keys.get(Keys.DOWN)))) ) {
 			player.setState(State.IDLE);
-			// acceleration is 0 on the x
+			
+			// acceleration is set to 0
 			player.getAcceleration().x = 0;
 			player.getAcceleration().y = 0;
-			// horizontal speed is 0
+			
+			// horizontal and veritcal speed is 0
 			player.getVelocity().x = 0;
 			player.getVelocity().y = 0;
 		}
