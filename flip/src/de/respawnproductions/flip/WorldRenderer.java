@@ -24,11 +24,11 @@ public class WorldRenderer {
 	
 	ShapeRenderer debugRenderer = new ShapeRenderer();
 	
-	private Texture bobTexture;
+	private Texture playerTexture;
 	private Texture blockTexture;
 
 	private SpriteBatch spriteBatch;
-	private boolean debug = false;
+	private boolean debug = true;
 	private int width;
 	private int height;
 	private float ppuX;	// pixels per unit on the X axis
@@ -49,34 +49,60 @@ public class WorldRenderer {
 		
 	}
 	
+	public void loadTextures() {
+		
+	playerTexture = new Texture(Gdx.files.internal("images/player_01.png"));
+	blockTexture = new Texture(Gdx.files.internal("images/block.png"));
+	
+	}
+	
 	public void render(){
-		//Blöcke
+		
+		spriteBatch.begin();
+			drawBlocks();
+			drawPlayer();
+		spriteBatch.end();
+		if (debug)
+			drawDebug();
+		
+	}
+	
+	private void drawBlocks(){
+		
+		for (BLOCK_SOLID block : world.getBlocks()){
+		
+			spriteBatch.draw(blockTexture, block.getPosition().x * ppuX, block.getPosition().y * ppuY, block.SIZE * ppuX, block.SIZE * ppuY);
+		
+		}
+		
+	}
+	
+	private void drawPlayer(){
+		Player player = world.getPlayer();
+		spriteBatch.draw(playerTexture, player.getPosition().x * ppuX, player.getPosition().y, player.SIZE * ppuX, player.SIZE * ppuY );
+		
+	}
+	
+	private void drawDebug(){
+		
 		debugRenderer.setProjectionMatrix(camera.combined);
 		debugRenderer.begin(ShapeType.Line);
-		for (BLOCK_SOLID block : World.getBlocks()){
+		for (BLOCK_SOLID block : world.getBlocks()){
+			
 			Rectangle rect = block.getBounds();
 			float x1 = block.getPosition().x + rect.x;
 			float y1 = block.getPosition().y + rect.y;
 			debugRenderer.setColor(new Color(1, 0, 0, 1));
-			debugRenderer.rect( x1, y1, rect.width, rect.height );
+			debugRenderer.rect( x1, y1, rect.width, rect.height);
+				
 		}
-		for (Enemy enemy : World.getEnemies()){
-			Rectangle rect = enemy.getBounds();
-			float x1 = enemy.getPosition().x + rect.x;
-			float y1 = enemy.getPosition().y + rect.y;
-			debugRenderer.setColor(new Color( 0, 1, 0, 1));
-			debugRenderer.rect( x1, y1, rect.width, rect.height );
-		}
+		
 		Player player = world.getPlayer();
 		Rectangle rect = player.getBounds();
-		float x1 = player.getPosition().x + rect.x;
-		float y1 = player.getPosition().y + rect.y;
-		debugRenderer.setColor(new Color(1, 1, 1, 1));
-		debugRenderer.rect(x1, y1, rect.width, rect.height);
+		float x1 = player.getBounds().x + rect.x;
+		float y1 = player.getBounds().y + rect.y;
+		debugRenderer.setColor(new Color( 0, 1, 0, 1 ));
+		debugRenderer.rect( x1, y1, rect.width, rect.height );
 		debugRenderer.end();
-			debugRenderer.end();
-			
-		
-		
 	}
 }
