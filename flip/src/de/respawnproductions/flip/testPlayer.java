@@ -13,7 +13,7 @@ public class testPlayer {
 	@Test
 	public void test() {
 		Vector2 origin = new Vector2( 0.0f, 0.0f );
-		Player player = new Player(null);
+		Player player = new Player(origin);
 		
 		player.setFacingLeft(1);
 		assertTrue(player.facingLeft);
@@ -41,6 +41,9 @@ public class testPlayer {
 		assertEquals(player.state, State.MOVE);	
 		
 		assertEquals( player.velocity, origin );
+		assertEquals( player.acceleration, origin );
+		assertEquals( player.position, origin );
+		
 		
 	}
 	
